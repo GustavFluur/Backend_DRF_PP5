@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Assembly
 
 class AssemblySerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
+    MeetingPoint = serializers.ReadOnlyField(source='MeetingPoint.username')
 
     class Meta:
         model = Assembly
