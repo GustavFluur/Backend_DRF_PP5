@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from .models import Assembly
 from .serializers import AssemblySerializer
 from django.http importHttp404
+from rest_framework import status
 
 
 class AssemblyList(APIView):
@@ -23,7 +24,11 @@ class AssemblyDetail(APIView):
     
     def get(self, request, pk):
         assembly = self.get_object(pk)
-        serializer=AssemblySerializer(assembly)
-        return Response(serializer.data)
+        serializer = AssemblySerializer(assembly, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
