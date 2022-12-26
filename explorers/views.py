@@ -15,6 +15,8 @@ class AssemblyList(APIView):
 
 
 class AssemblyDetail(APIView):
+    serializer_class = AssemblySerializer
+    
     def get_object(self, pk):
         try:
             assembly = Assembly.objects.get(pk=pk)
