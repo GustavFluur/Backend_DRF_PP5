@@ -7,7 +7,7 @@ from .serializers import AssemblySerializer
 class AssemblyList(APIView):
     def get(self, request):
         assemblies = Assembly.objects.all()
-        serializer = AssemblySerializer(explorers, many=True)
+        serializer = AssemblySerializer(assemblies, many=True)
 
         return Response(serializer.data)
 
