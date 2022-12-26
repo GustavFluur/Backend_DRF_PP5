@@ -18,7 +18,7 @@ class Assembly(models.Model):
 
 def create_assembly(sender, instance, created, **kwargs):
     if created:
-        Assembly.objects.create(owner=instance)
+        Assembly.objects.create(title=instance)
 
 
 post_save.connect(create_assembly, sender=User)
