@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Assembly
 from .serializers import AssemblySerializer
-from django.http importHttp404
+from django.http import Http404
 from rest_framework import status
 
 
@@ -16,7 +16,7 @@ class AssemblyList(APIView):
 
 class AssemblyDetail(APIView):
     serializer_class = AssemblySerializer
-    
+
     def get_object(self, pk):
         try:
             assembly = Assembly.objects.get(pk=pk)
