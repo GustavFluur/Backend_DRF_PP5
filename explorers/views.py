@@ -4,22 +4,24 @@ from .models import Assembly
 from .serializers import AssemblySerializer
 from django.http import Http404
 from rest_framework import status
+from DRF_API.permissions import IsOwnerOrReadOnly
 
 
 class AssemblyList(APIView):
     def get(self, request):
         assemblies = Assembly.objects.all()
-        serializer = AssemblySerializer(assemblies, many=True)
-
+        serializer = AssemblySerializer(assemblies, many=True, context={'request': request})
         return Response(serializer.data)
 
 
 class AssemblyDetail(APIView):
     serializer_class = AssemblySerializer
+    permission_classes = [IsOwnerOrReadOnly]
 
     def get_object(self, pk):
         try:
             assembly = Assembly.objects.get(pk=pk)
+            self.check_object_permissions(self.request, assembly) 
             return assembly
         except Profile.DoesNotExist:
             raise Http404
